@@ -70,8 +70,9 @@ class Roster extends Model
                 'updated_at' => $now,
             ], $data);
         })->all();
-
-        return Roster::insert($rosters);
+        foreach ($rosters as $roster) {
+            Roster::insert($roster);
+        }
     }
 
     public function getSearchTerms()
