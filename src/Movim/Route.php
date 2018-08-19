@@ -72,7 +72,7 @@ class Route extends Base
         }
 
         if (empty($this->_page) || $this->_page == 'main') {
-            $this->_page = 'news';
+            $this->_page = 'chat';
         }
 
         if (!isset($this->_routes[$this->_page])) {

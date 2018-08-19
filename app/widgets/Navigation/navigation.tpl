@@ -1,4 +1,14 @@
 <ul class="list active" dir="ltr">
+    <a class="classic" href="{$c->route('chat')}"
+       title="{$c->__('page.chats')}">
+        <li {if="$page == 'chat'"}class="active"{/if}>
+            <span class="primary icon">
+                <i class="material-icons">forum</i>
+                <span data-key="chat" class="counter"></span>
+            </span>
+            <p class="normal">{$c->__('page.chats')}</p>
+        </li>
+    </a>
     {if="$c->getUser()->hasPubsub()"}
     <a class="classic"
        href="{$c->route('news')}"
@@ -18,16 +28,6 @@
         <li {if="$page == 'community'"}class="active"{/if}>
             <span class="primary icon"><i class="material-icons">group_work</i></span>
             <p class="normal">{$c->__('page.communities')}</p>
-        </li>
-    </a>
-    <a class="classic" href="{$c->route('chat')}"
-       title="{$c->__('page.chats')}">
-        <li {if="$page == 'chat'"}class="active"{/if}>
-            <span class="primary icon">
-                <i class="material-icons">forum</i>
-                <span data-key="chat" class="counter"></span>
-            </span>
-            <p class="normal">{$c->__('page.chats')}</p>
         </li>
     </a>
 </ul>
