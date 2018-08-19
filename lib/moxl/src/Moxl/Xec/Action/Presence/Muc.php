@@ -68,11 +68,10 @@ class Muc extends Action
             $g->setTo($this->_to)
               ->setLimit(300);
 
-            if (!empty($message)
-            && strtotime($message->published) > strtotime('-3 days')) {
+            if (!empty($message)) {
                 $g->setStart(strtotime($message->published));
             } else {
-                $g->setStart(strtotime('-3 days'));
+                $g->setBefore();
             }
 
             if (!$this->_mam2) {
