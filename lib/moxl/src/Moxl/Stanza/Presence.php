@@ -147,7 +147,7 @@ class Presence
      */
     public static function away($status = false)
     {
-        $xml = self::maker(false, $status, 'away', false, false);
+        $xml = self::maker(false, $status, 'away', -1, false);
         \Moxl\API::request($xml);
     }
 
@@ -156,7 +156,7 @@ class Presence
      */
     public static function chat($status = false)
     {
-        $xml = self::maker(false, $status, 'chat', false, false);
+        $xml = self::maker(false, $status, 'chat', 1, false);
         \Moxl\API::request($xml);
     }
 
@@ -165,7 +165,7 @@ class Presence
      */
     public static function DND($status = false)
     {
-        $xml = self::maker(false, $status, 'dnd', false, false);
+        $xml = self::maker(false, $status, 'dnd', 1, false);
         \Moxl\API::request($xml);
     }
 
@@ -174,7 +174,7 @@ class Presence
      */
     public static function XA($status = false)
     {
-        $xml = self::maker(false, $status, 'xa', false, false);
+        $xml = self::maker(false, $status, 'xa', -1, false);
         \Moxl\API::request($xml);
     }
 }
