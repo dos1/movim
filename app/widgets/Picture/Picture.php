@@ -66,6 +66,6 @@ class Picture extends Base
         }
 
         header("HTTP/1.1 301 Moved Permanently");
-        header('Location: ' . $this->respath('empty.png'));
+        header('Location: ' . $this->respath('picture.svg'));
     }
 }
