@@ -16,12 +16,13 @@ class Picture extends Base
     public function display()
     {
         $url = urldecode($this->get('url'));
+        $size = $this->get('s');
 
         $headers = requestHeaders($url);
 
         if ($headers['http_code'] == 200
         && $headers["download_content_length"] <= SMALL_PICTURE_LIMIT
-        && $headers["download_content_length"] > 2000
+        && ($headers["download_content_length"] == $size || !$size)
         && typeIsPicture($headers['content_type'])) {
             $components = parse_url($url);
 
