@@ -71,7 +71,7 @@ class Muc extends Action
             if (!empty($message)) {
                 $g->setStart(strtotime($message->published));
             } else {
-                $g->setBefore();
+                $g->setStart(strtotime('2018-08-08 00:00'));
             }
 
             if (!$this->_mam2) {
