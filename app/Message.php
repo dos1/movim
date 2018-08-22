@@ -281,6 +281,37 @@ class Message extends Model
                 }
             }
 
+            if (isset($stanza->x)
+                && $stanza->x->attributes()->xmlns == 'jabber:x:oob'
+                && !isset($this->file)) {
+                  $filetmp = [];
+                  $filetmp['size'] = null;
+                  $filetmp['uri'] = (string)$stanza->x->url;
+                  if (preg_match('/\.png$/i', $filetmp['uri'])) {
+                      $filetmp['type'] = 'image/png';
+                  } elseif (preg_match('/\.jpe?g$/i', $filetmp['uri'])) {
+                      $filetmp['type'] = 'image/jpeg';
+                  } elseif (preg_match('/\.gif$/i', $filetmp['uri'])) {
+                      $filetmp['type'] = 'image/gif';
+                  } elseif (preg_match('/\.m4a$/i', $filetmp['uri'])) {
+                      $filetmp['type'] = 'audio/m4a';
+                  } elseif (preg_match('/\.mp4$/i', $filetmp['uri'])) {
+                      $filetmp['type'] = 'video/mp4';
+                  } elseif (preg_match('/\.ogg$/i', $filetmp['uri'])) {
+                      $filetmp['type'] = 'audio/ogg';
+                  } else {
+                      $filetmp['type'] = 'application/octet-stream';
+                  }
+                  $filetmp['name'] = (string)$stanza->x->desc;
+                  if (!$filetmp['name']) {
+                      $filetmp['name'] = substr($filetmp['uri'], strrpos($filetmp['uri'], '/') + 1);
+                  }
+                  $filetmp['uri'] = (string)$stanza->x->url;
+                  if (!filter_var($filetmp['uri'], FILTER_VALIDATE_URL) === false) {
+                      $this->file = $filetmp;
+                  }
+            }
+
             if ($stanza->replace
             && $this->user->messages()
                 ->where('jidfrom', $this->jidfrom)
@@ -302,7 +333,7 @@ class Message extends Model
                 ->update(['id' => $this->id]);
             }
 
-            if (isset($stanza->x->invite)) {
+            if (isset($stanza->x) && isset($stanza->x->invite)) {
                 $this->type = 'invitation';
                 $this->subject = $this->jidfrom;
                 $this->jidfrom = current(explode('/', (string)$stanza->x->invite->attributes()->from));
