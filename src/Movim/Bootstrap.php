@@ -293,7 +293,7 @@ class Bootstrap
 
     public function systemErrorHandler($errno, string $errstr, string $errfile = '', int $errline = 0)
     {
-        echo 'An error occured, check syslog for more information'."\n";
+        //echo 'An error occured, check syslog for more information'."\n";
 
         $log = new Logger('movim');
         $log->pushHandler(new SyslogHandler('movim'));
